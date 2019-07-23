@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Cppcheck - HTML report - pluma</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+    </style>
+    <script language="javascript">
+      function getStyle(el,styleProp) {
+        if (el.currentStyle)
+          var y = el.currentStyle[styleProp];
+        else if (window.getComputedStyle)
+          var y = document.defaultView.getComputedStyle(el,null).getPropertyValue(styleProp);
+        return y;
+      }
+      function toggle() {
+        var el = this.expandable_content;
+        var mark = this.expandable_marker;
+        if (el.style.display == "block") {
+          el.style.display = "none";
+          mark.innerHTML = "[+]";
+        } else {
+          el.style.display = "block";
+          mark.innerHTML = "[-]";
+        }
+      }
+      function init_expandables() {
+        var elts = document.getElementsByClassName("expandable");
+        for (var i = 0; i < elts.length; i++) {
+          var el = elts[i];
+          var clickable = el.getElementsByTagName("span")[0];
+          var marker = clickable.getElementsByClassName("marker")[0];
+          var content = el.getElementsByClassName("content")[0];
+          var width = clickable.clientWidth - parseInt(getStyle(content, "padding-left")) - parseInt(getStyle(content, "padding-right"));
+          content.style.width = width + "px";
+          clickable.expandable_content = content;
+          clickable.expandable_marker = marker;
+          clickable.onclick = toggle;
+        }
+      }
+      function set_class_display(c, st) {
+        var elements = document.querySelectorAll('.' + c),
+            len = elements.length;
+        for (i = 0; i < len; i++) {
+            elements[i].style.display = st;
+        }
+      }
+      function toggle_class_visibility(id) {
+        var box = document.getElementById(id);
+        set_class_display(id, box.checked ? '' : 'none');
+      }
+      function toggle_all(){
+        var elts = document.getElementsByTagName("input");
+        for (var i = 1; i < elts.length; i++) {           
+          var el = elts[i];
+          el.checked ? el.checked=false : el.checked=true;
+          toggle_class_visibility(el.id);        
+        }            
+      }
+
+    </script>
+  </head>
+  <body onload="init_expandables()">
+      <div id="header">
+        <h1>Cppcheck report - pluma:  </h1>
+      </div>
+      <div id="menu_index">
+       <p id="filename"><a href="index.html">Defect summary;</a> </p>
+       <table>           <tr><th>Show</th><th>#</th><th>Defect ID</th></tr><label><input type="checkbox" onclick="toggle_all()" checked/> Toggle all</label>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='variableScope' name='variableScope' checked></td><td>76</td><td>variableScope</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='varFuncNullUB' name='varFuncNullUB' checked></td><td>14</td><td>varFuncNullUB</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='unreadVariable' name='unreadVariable' checked></td><td>8</td><td>unreadVariable</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='duplicateCondition' name='duplicateCondition' checked></td><td>2</td><td>duplicateCondition</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='shadowVar' name='shadowVar' checked></td><td>2</td><td>shadowVar</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='uninitvar' name='uninitvar' checked></td><td>2</td><td>uninitvar</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='unusedVariable' name='unusedVariable' checked></td><td>2</td><td>unusedVariable</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='funcArgOrderDifferent' name='funcArgOrderDifferent' checked></td><td>1</td><td>funcArgOrderDifferent</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='knownConditionTrueFalse' name='knownConditionTrueFalse' checked></td><td>1</td><td>knownConditionTrueFalse</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='missingInclude' name='missingInclude' checked></td><td>1</td><td>missingInclude</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='noValidConfiguration' name='noValidConfiguration' checked></td><td>1</td><td>noValidConfiguration</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='nullPointerRedundantCheck' name='nullPointerRedundantCheck' checked></td><td>1</td><td>nullPointerRedundantCheck</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='preprocessorErrorDirective' name='preprocessorErrorDirective' checked></td><td>1</td><td>preprocessorErrorDirective</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='redundantAssignment' name='redundantAssignment' checked></td><td>1</td><td>redundantAssignment</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='unknownEvaluationOrder' name='unknownEvaluationOrder' checked></td><td>1</td><td>unknownEvaluationOrder</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='unsignedLessThanZero' name='unsignedLessThanZero' checked></td><td>1</td><td>unsignedLessThanZero</td></tr>            <tr><td><input type='checkbox' onclick='toggle_class_visibility(this.id)' id='uselessAssignmentPtrArg' name='uselessAssignmentPtrArg' checked></td><td>1</td><td>uselessAssignmentPtrArg</td></tr>           <tr><td></td><td>116</td><td>total</td></tr>       </table>       <a href="stats.html">Statistics</a></p>
+      </div>
+      <div id="content_index">
+       <table>
+       <tr><th>Line</th><th>Id</th><th>CWE</th><th>Severity</th><th>Message</th></tr>
+       <tr><td colspan='5'><a href='33.html'></a></td></tr>
+         <tr class="missingInclude"><td></td><td>missingInclude</td><td></td><td>information</td><td>Cppcheck cannot find all the include files (use --check-config for details)</td></tr>
+       <tr><td colspan='5'><a href='0.html'>plugins/filebrowser/pluma-file-browser-messages.c</a></td></tr>
+       <tr class="variableScope"><td><a href="0.html#line-223">223</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'store' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='1.html'>plugins/filebrowser/pluma-file-browser-plugin.c</a></td></tr>
+       <tr class="variableScope"><td><a href="1.html#line-966">966</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'doc' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="1.html#line-970">970</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'uri' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="1.html#line-1125">1125</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'normal' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="1.html#line-1155">1155</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'normal' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='2.html'>plugins/filebrowser/pluma-file-browser-store.c</a></td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-271">271</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'uri' can be reduced.</td></tr>
+       <tr class="redundantAssignment"><td><a href="2.html#line-601">601</a></td><td>redundantAssignment</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'node' is reassigned a value before the old one has been used.</td></tr>
+       <tr class="unreadVariable"><td><a href="2.html#line-616">616</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'num' is assigned a value that is never used.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-1093">1093</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'path' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-1094">1094</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'neworder' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-1352">1352</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'uri' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-1534">1534</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'dir' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-1535">1535</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'dummy' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-1914">1914</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'content' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-1917">1917</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'uri' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-2334">2334</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'child' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-2395">2395</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'dir' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-2483">2483</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'check' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-2509">2509</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'child' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-2510">2510</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'result' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-3144">3144</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'parent' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-3145">3145</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'base' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-3178">3178</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'previous' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-3180">3180</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'olduri' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="2.html#line-3181">3181</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'newuri' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='3.html'>plugins/filebrowser/pluma-file-browser-view.c</a></td></tr>
+       <tr class="variableScope"><td><a href="3.html#line-271">271</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'old_hover_path' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='4.html'>plugins/filebrowser/pluma-file-browser-widget.c</a></td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-503">503</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'node' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-732">732</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'indent' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-1065">1065</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'func' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-1440">1440</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'path' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-1962">1962</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'func' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-2026">2026</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'path' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-2533">2533</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'root_uri' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-2535">2535</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'action' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-2536">2536</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'loc' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-3021">3021</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'path' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="4.html#line-3099">3099</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'path' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='5.html'>plugins/spell/pluma-automatic-spell-checker.c</a></td></tr>
+       <tr class="variableScope"><td><a href="5.html#line-407">407</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'label_text' can be reduced.</td></tr>
+       <tr class="unknownEvaluationOrder"><td><a href="5.html#line-719">719</a></td><td>unknownEvaluationOrder</td><td><a href='https://cwe.mitre.org/data/definitions/768.html'>768</a></td><td>error</td><td class="error">Expression '(spell=pluma_automatic_spell_checker_get_from_document(doc))==NULL,spell' depends on order of evaluation of side effects</td></tr>
+       <tr><td colspan='5'><a href='6.html'>plugins/spell/pluma-spell-checker.c</a></td></tr>
+       <tr class="duplicateCondition"><td><a href="6.html#line-258">258</a></td><td>duplicateCondition</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The if condition is the same as the previous if condition</td></tr>
+       <tr><td colspan='5'><a href='7.html'>plugins/spell/pluma-spell-plugin.c</a></td></tr>
+       <tr class="variableScope"><td><a href="7.html#line-1053">1053</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'action' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='8.html'>plugins/taglist/pluma-taglist-plugin-panel.c</a></td></tr>
+       <tr class="unreadVariable"><td><a href="8.html#line-177">177</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'sel' is assigned a value that is never used.</td></tr>
+       <tr class="unreadVariable"><td><a href="8.html#line-195">195</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'sel' is assigned a value that is never used.</td></tr>
+       <tr class="unsignedLessThanZero"><td><a href="8.html#line-421">421</a></td><td>unsignedLessThanZero</td><td><a href='https://cwe.mitre.org/data/definitions/570.html'>570</a></td><td>style</td><td >Checking if unsigned expression 'strlen(group_name)' is less than zero.</td></tr>
+       <tr><td colspan='5'><a href='9.html'>plugins/taglist/pluma-taglist-plugin-parser.c</a></td></tr>
+       <tr class="nullPointerRedundantCheck"><td><a href="9.html#line-509">509</a></td><td>nullPointerRedundantCheck</td><td><a href='https://cwe.mitre.org/data/definitions/476.html'>476</a></td><td>warning</td><td >Either the condition 'tag_group!=NULL' is redundant or there is possible null pointer dereference: tag_group.</td></tr>
+       <tr class="variableScope"><td><a href="9.html#line-592">592</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'pdir' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='10.html'>plugins/trailsave/pluma-trail-save-plugin.c</a></td></tr>
+       <tr class="variableScope"><td><a href="10.html#line-172">172</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'document' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="10.html#line-202">202</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'document' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='11.html'>pluma/bacon-message-connection.c</a></td></tr>
+       <tr class="variableScope"><td><a href="11.html#line-227">227</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'newfile' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='12.html'>pluma/dialogs/pluma-preferences-dialog.c</a></td></tr>
+       <tr class="varFuncNullUB"><td><a href="12.html#line-1020">1020</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr><td colspan='5'><a href='13.html'>pluma/pluma-commands-file.c</a></td></tr>
+       <tr class="varFuncNullUB"><td><a href="13.html#line-468">468</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="13.html#line-762">762</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr><td colspan='5'><a href='14.html'>pluma/pluma-commands-search.c</a></td></tr>
+       <tr class="unreadVariable"><td><a href="14.html#line-312">312</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'len' is assigned a value that is never used.</td></tr>
+       <tr><td colspan='5'><a href='15.html'>pluma/pluma-document.c</a></td></tr>
+       <tr class="varFuncNullUB"><td><a href="15.html#line-262">262</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="15.html#line-266">266</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="15.html#line-730">730</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="15.html#line-758">758</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="variableScope"><td><a href="15.html#line-2793">2793</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'value' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="15.html#line-2875">2875</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'value' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='16.html'>pluma/pluma-documents-panel.c</a></td></tr>
+       <tr class="variableScope"><td><a href="16.html#line-149">149</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'selection' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='17.html'>pluma/pluma-file-chooser-dialog.c</a></td></tr>
+       <tr class="shadowVar"><td><a href="17.html#line-289">289</a></td><td>shadowVar</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >Local variable 'mime_types' shadows outer variable</td></tr>
+       <tr><td colspan='5'><a href='18.html'>pluma/pluma-gio-document-saver.c</a></td></tr>
+       <tr class="variableScope"><td><a href="18.html#line-498">498</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'converter' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='19.html'>pluma/pluma-io-error-message-area.c</a></td></tr>
+       <tr class="variableScope"><td><a href="19.html#line-116">116</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'secondary_markup' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="19.html#line-118">118</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'secondary_label' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="19.html#line-212">212</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'scheme_markup' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="19.html#line-478">478</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'secondary_markup' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="19.html#line-480">480</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'secondary_label' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="19.html#line-1028">1028</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'scheme_string' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="19.html#line-1029">1029</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'scheme_markup' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='20.html'>pluma/pluma-prefs-manager-app.c</a></td></tr>
+       <tr class="unreadVariable"><td><a href="20.html#line-778">778</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'def' is assigned a value that is never used.</td></tr>
+       <tr class="unreadVariable"><td><a href="20.html#line-796">796</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'def' is assigned a value that is never used.</td></tr>
+       <tr><td colspan='5'><a href='21.html'>pluma/pluma-prefs-manager.c</a></td></tr>
+       <tr class="variableScope"><td><a href="21.html#line-682">682</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'enc' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="21.html#line-733">733</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'enc' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='22.html'>pluma/pluma-session.c</a></td></tr>
+       <tr class="variableScope"><td><a href="22.html#line-137">137</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'group_name' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='23.html'>pluma/pluma-tab.c</a></td></tr>
+       <tr class="variableScope"><td><a href="23.html#line-735">735</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'to_markup' can be reduced.</td></tr>
+       <tr class="shadowVar"><td><a href="23.html#line-987">987</a></td><td>shadowVar</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >Local variable 'emsg' shadows outer variable</td></tr>
+       <tr class="variableScope"><td><a href="23.html#line-1261">1261</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'emsg' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='24.html'>pluma/pluma-utils.c</a></td></tr>
+       <tr class="variableScope"><td><a href="24.html#line-649">649</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'valid_bytes' can be reduced.</td></tr>
+       <tr class="uninitvar"><td><a href="24.html#line-877">877</a></td><td>uninitvar</td><td><a href='https://cwe.mitre.org/data/definitions/908.html'>908</a></td><td>error</td><td class="error">Uninitialized variable: current_desktop</td></tr>
+       <tr class="uninitvar"><td><a href="24.html#line-928">928</a></td><td>uninitvar</td><td><a href='https://cwe.mitre.org/data/definitions/908.html'>908</a></td><td>error</td><td class="error">Uninitialized variable: workspace</td></tr>
+       <tr class="funcArgOrderDifferent"><td><a href="24.html#line-1430">1430</a></td><td>funcArgOrderDifferent</td><td><a href='https://cwe.mitre.org/data/definitions/683.html'>683</a></td><td>warning</td><td >Function 'pluma_utils_decode_uri' argument order different: declaration 'uri, scheme, user, port, host, path' definition 'uri, scheme, user, host, port, path'</td></tr>
+       <tr class="variableScope"><td><a href="24.html#line-1442">1442</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'in' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="24.html#line-1443">1443</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'out' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="24.html#line-1444">1444</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'c' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="24.html#line-1496">1496</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'userinfo_start' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='25.html'>pluma/pluma-view.c</a></td></tr>
+       <tr class="duplicateCondition"><td><a href="25.html#line-1666">1666</a></td><td>duplicateCondition</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The if condition is the same as the previous if condition</td></tr>
+       <tr class="unreadVariable"><td><a href="25.html#line-1775">1775</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'len' is assigned a value that is never used.</td></tr>
+       <tr class="variableScope"><td><a href="25.html#line-2130">2130</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'uri_list' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='26.html'>pluma/pluma-window.c</a></td></tr>
+       <tr class="variableScope"><td><a href="26.html#line-2744">2744</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'doc' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="26.html#line-2830">2830</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'uri_list' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='27.html'>pluma/pluma.c</a></td></tr>
+       <tr class="variableScope"><td><a href="27.html#line-499">499</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'window' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="27.html#line-500">500</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'app' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='28.html'>pluma/smclient/eggdesktopfile.c</a></td></tr>
+       <tr class="variableScope"><td><a href="28.html#line-482">482</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'try_exec' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="28.html#line-482">482</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'found_program' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="28.html#line-483">483</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'only_show_in' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="28.html#line-483">483</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'not_show_in' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="28.html#line-485">485</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'i' can be reduced.</td></tr>
+       <tr class="variableScope"><td><a href="28.html#line-607">607</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'p' can be reduced.</td></tr>
+       <tr><td colspan='5'><a href='29.html'>pluma/smclient/eggsmclient-xsmp.c</a></td></tr>
+       <tr class="variableScope"><td><a href="29.html#line-225">225</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'cmdline' can be reduced.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="29.html#line-273">273</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="29.html#line-281">281</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="uselessAssignmentPtrArg"><td><a href="29.html#line-336">336</a></td><td>uselessAssignmentPtrArg</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>warning</td><td >Assignment of function parameter has no effect outside the function. Did you forget dereferencing it?</td></tr>
+       <tr class="variableScope"><td><a href="29.html#line-771">771</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'fd' can be reduced.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="29.html#line-783">783</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="29.html#line-786">786</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="variableScope"><td><a href="29.html#line-806">806</a></td><td>variableScope</td><td><a href='https://cwe.mitre.org/data/definitions/398.html'>398</a></td><td>style</td><td >The scope of the variable 'keys' can be reduced.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="29.html#line-911">911</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="29.html#line-919">919</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr class="varFuncNullUB"><td><a href="29.html#line-920">920</a></td><td>varFuncNullUB</td><td><a href='https://cwe.mitre.org/data/definitions/475.html'>475</a></td><td>portability</td><td >Passing NULL after the last typed argument to a variadic function leads to undefined behaviour.</td></tr>
+       <tr><td colspan='5'><a href='30.html'>tests/document-loader.c</a></td></tr>
+       <tr class="unusedVariable"><td><a href="30.html#line-44">44</a></td><td>unusedVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Unused variable: document</td></tr>
+       <tr class="unusedVariable"><td><a href="30.html#line-45">45</a></td><td>unusedVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Unused variable: uri</td></tr>
+       <tr><td colspan='5'><a href='31.html'>tests/smart-converter.c</a></td></tr>
+       <tr class="knownConditionTrueFalse"><td><a href="31.html#line-108">108</a></td><td>knownConditionTrueFalse</td><td><a href='https://cwe.mitre.org/data/definitions/571.html'>571</a></td><td>style</td><td >Condition '!care_about_error' is always true</td></tr>
+       <tr class="unreadVariable"><td><a href="31.html#line-337">337</a></td><td>unreadVariable</td><td><a href='https://cwe.mitre.org/data/definitions/563.html'>563</a></td><td>style</td><td >Variable 'aux2' is assigned a value that is never used.</td></tr>
+       <tr><td colspan='5'><a href='32.html'>tools/plugin_template/pluma-plugin.c</a></td></tr>
+       <tr class="noValidConfiguration"><td><a href="32.html#line-0">0</a></td><td>noValidConfiguration</td><td></td><td>information</td><td >This file is not analyzed. Cppcheck failed to extract a valid configuration. Use -v for more details.</td></tr>
+       <tr class="preprocessorErrorDirective"><td><a href="32.html#line-32">32</a></td><td>preprocessorErrorDirective</td><td></td><td>error</td><td class="error">Failed to parse #define</td></tr>
+       </table>
+      </div>
+      <div id="footer">
+        <p>
+         Cppcheck 1.88 - a tool for static C/C++ code analysis</br>
+         </br>
+         Internet: <a href="http://cppcheck.net">http://cppcheck.net</a></br>
+         IRC: <a href="irc://irc.freenode.net/cppcheck">irc://irc.freenode.net/cppcheck</a></br>
+        <p>
+      </div>
+  </body>
+</html>
